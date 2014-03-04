@@ -1,9 +1,7 @@
-	
-
-    from pygoogle import pygoogle
-    import urllib
-    while True:
-            yesCount = 0
+	from pygoogle import pygoogle
+	import urllib
+	while True:
+			yesCount = 0
             noCount = 0
             z = str(raw_input(":"))
             search = pygoogle(z)
