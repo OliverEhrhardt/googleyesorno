@@ -1,10 +1,11 @@
+from __future__ import division
 import urllib
-import json as m_json
+import json as json
 while True:
 	yesCount = 0
 	noCount = 0
 	z = urllib.urlencode ({'q' : raw_input(":")})
-	search = m_json.loads(urllib.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + z).read())
+	search = json.loads(urllib.urlopen('http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + z).read())
 	results = search['responseData']['results']
 	result = urllib.urlopen(results[0]['url']).read()
 	print(results[0]['url'])
@@ -14,6 +15,9 @@ while True:
 		yesCount = yesCount + result.count(a)
 	for a in no:
 		noCount = noCount + result.count(a)
+	if yesCount > 0 and noCount > 0:
+		hist = open('history.csv', 'a')
+		hist.write(str(yesCount/noCount)+",");
 	if yesCount//len(yes) == 0 and noCount//len(no) == 0: print('i dont know')
 	elif yesCount//len(yes)>noCount//len(no)*3: print('yes')
 	elif abs(yesCount//len(yes)-noCount//len(no)*3)<=2: print('maybe')
