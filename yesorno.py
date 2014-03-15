@@ -17,9 +17,14 @@ while True:
 		noCount = noCount + result.count(a)
 	if yesCount > 0 and noCount > 0:
 		hist = open('history.csv', 'a')
-		hist.write(str(yesCount/noCount)+",");
+		hist.write(str(yesCount/noCount)+",")
+	avghist = open('history.csv').read().split(',')
+	s = 0;
+	for a in avghist: 
+		if a != "": s += float(a)
+	avg = s/len(avghist)
 	if yesCount//len(yes) == 0 and noCount//len(no) == 0: print('i dont know')
-	elif yesCount//len(yes)>noCount//len(no)*3: print('yes')
-	elif abs(yesCount//len(yes)-noCount//len(no)*3)<=2: print('maybe')
+	elif yesCount//len(yes)>noCount//len(no)*avg: print('yes')
+	elif abs(yesCount//len(yes)-noCount//len(no)*avg)<=2: print('maybe')
 	else: print('no')
-	print str(yesCount//len(yes))+"-"+str(noCount//len(no)*3)
+	print str(yesCount//len(yes))+"-"+str(noCount//len(no)*avg)
